@@ -1,6 +1,9 @@
+<?php
+require "configure.php";
+?>
 <!DOCTYPE html>
 <head>
-    <title>CV2020 - PVs</title>
+    <title><?= getenv("TITLE") ?></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.css">
@@ -56,7 +59,7 @@
                 <div :style="{textAlign:'right',padding:'10px', marginBottom:'-20px'}">
                     <a
                         v-if="$route.params.page"
-                        :href="'https://github.com/j4kim/cret-vaillant/edit/master/pv/' + $route.params.page"
+                        :href="'<?= getenv("EDIT_LINK_BASE") ?>' + $route.params.page"
                         target="_blank"
                     >Editer</a>
                 </div>
