@@ -2,6 +2,10 @@
 
 require "vendor/autoload.php";
 
+$config = Dotenv\Dotenv::createImmutable(__DIR__);
+$config->load();
+$config->required(["FOLDER"]);
+
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Environment;
 use League\CommonMark\Ext\TaskList\TaskListExtension;
@@ -10,7 +14,7 @@ $environment = Environment::createCommonMarkEnvironment();
 $environment->addExtension(new TaskListExtension());
 $converter = new CommonMarkConverter([], $environment);
 
-$folder = "../cret-vaillant/pv";
+$folder = getenv("FOLDER");
 
 $files = scandir($folder);
 
