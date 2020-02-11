@@ -1,18 +1,14 @@
 <?php
 
-require "vendor/autoload.php";
-
-$config = Dotenv\Dotenv::createImmutable(__DIR__);
-$config->load();
-$config->required(["FOLDER"]);
+require "configure.php";
 
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Environment;
 use League\CommonMark\Ext\TaskList\TaskListExtension;
 
-$environment = Environment::createCommonMarkEnvironment();
-$environment->addExtension(new TaskListExtension());
-$converter = new CommonMarkConverter([], $environment);
+$cmenv = Environment::createCommonMarkEnvironment();
+$cmenv->addExtension(new TaskListExtension());
+$converter = new CommonMarkConverter([], $cmenv);
 
 $folder = getenv("FOLDER");
 
