@@ -3,7 +3,7 @@
         <nav id="sidebar">
             <ul v-if="pages.length">
                 <li v-for="page in pages" :key="page.name">
-                    <router-link :to="page.name">{{ page.title }}</router-link>
+                    <nav-item :page="page" />
                 </li>
             </ul>
         </nav>
@@ -21,7 +21,10 @@
 </template>
 
 <script>
+import NavItem from "./NavItem.vue"
+
 export default {
+    components: { NavItem },
     data() {
         return { pages: [] }
     },
