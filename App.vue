@@ -11,7 +11,7 @@
             <div :style="{textAlign:'right',padding:'10px', marginBottom:'-20px'}">
                 <a
                     v-if="$route.params.page"
-                    :href="$root.editLinkBase + $route.params.page"
+                    :href="editLinkBase + $route.params.page"
                     target="_blank"
                 >Editer</a>
             </div>
@@ -37,6 +37,9 @@ export default {
     computed: {
         allTags() {
             return uniq(flatten(this.pages.map(page => page.tags)))
+        },
+        editLinkBase() {
+            return document.body.dataset.editLinkBase
         }
     }
 

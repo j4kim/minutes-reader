@@ -9,8 +9,8 @@ require "configure.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.css">
 </head>
 <html>
-    <body>
-        <div id="app" data-edit-link-base="<?= getenv("EDIT_LINK_BASE") ?>">
+    <body data-edit-link-base="<?= getenv("EDIT_LINK_BASE") ?>">
+        <div id="app">
             <!-- App injected by Vue -->
         </div>
     </body>
