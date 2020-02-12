@@ -1,5 +1,5 @@
 <template>
-    <div v-html="autoLinkedHtml" />
+    <div v-html="html" />
 </template>
 
 <script>
@@ -11,9 +11,6 @@ export default {
             })
             return page ? page.html : "Chargement..."
         },
-        autoLinkedHtml() {
-            return Autolinker.link(this.html)
-        }
     }
 }
 </script>

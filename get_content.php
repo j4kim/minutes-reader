@@ -2,13 +2,8 @@
 
 require "configure.php";
 
-use League\CommonMark\CommonMarkConverter;
-use League\CommonMark\Environment;
-use League\CommonMark\Ext\TaskList\TaskListExtension;
-
-$cmenv = Environment::createCommonMarkEnvironment();
-$cmenv->addExtension(new TaskListExtension());
-$converter = new CommonMarkConverter([], $cmenv);
+use League\CommonMark\GithubFlavoredMarkdownConverter;
+$converter = new GithubFlavoredMarkdownConverter();
 
 $folder = getenv("FOLDER");
 
