@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { uniq, flatten } from "lodash"
 import NavItem from "./NavItem.vue"
 
 export default {
@@ -32,7 +33,13 @@ export default {
         fetch("get_content.php")
             .then(response => response.json())
             .then(json => this.pages = json)
+    },
+    computed: {
+        allTags() {
+            return uniq(flatten(this.pages.map(page => page.tags)))
+        }
     }
+
 }
 </script>
 
