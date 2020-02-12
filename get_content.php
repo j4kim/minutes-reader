@@ -21,6 +21,7 @@ foreach ($files as $name) {
         $title = array_pop(explode("# ", $first_line));
         $last_line = array_pop($lines);
         $tags = explode(",", array_pop(explode("tags: ", $last_line))); 
+        $content = implode("\n", $lines);
         $html = $converter->convertToHtml($content);
         $pages[] = compact("name", "title", "content", "html", "tags");
     }
