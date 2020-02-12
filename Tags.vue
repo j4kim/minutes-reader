@@ -1,8 +1,8 @@
 <template>
     <div>
-        <span v-for="tag in tags" :key="tag">
+        <small v-for="tag in tags" :key="tag">
             {{ tag }}
-        </span>
+        </small>
     </div>
 </template>
 
