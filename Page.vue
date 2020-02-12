@@ -1,16 +1,21 @@
 <template>
-    <div v-html="html" />
+    <div>
+        <div v-html="page.html" />
+        <tags :tags="page.tags" />
+    </div>
 </template>
 
 <script>
+import Tags from "./Tags.vue"
+
 export default {
+    components: { Tags },
     computed: {
-        html() {
-            var page = this.$parent.pages.find(p => {
+        page() {
+            return this.$parent.pages.find(p => {
                 return this.$route.params.page === p.name
-            })
-            return page ? page.html : "Chargement..."
-        },
+            }) || { html: "Chargement..." }
+        }
     }
 }
 </script>
