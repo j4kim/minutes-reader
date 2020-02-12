@@ -1,0 +1,31 @@
+{
+  "name": "minutes-reader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "autolinker": "^3.11.1",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.2",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.8.3",
+    "vue-router": "^3.1.5",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j4kim/minutes-reader.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/j4kim/minutes-reader/issues"
+  },
+  "homepage": "https://github.com/j4kim/minutes-reader#readme"
+}

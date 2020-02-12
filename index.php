@@ -7,96 +7,13 @@ require "configure.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router@3.1.5/dist/vue-router.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autolinker/3.11.1/Autolinker.min.js"></script>
-    <style>
-        body,html{
-            margin:0;
-            padding:0;
-        }
-        #app{
-            display: flex;
-        }
-        #app > *{
-            height: 100vh;
-            overflow: auto;
-        }
-        #sidebar{
-            padding: 20px;
-            width: 600px;
-            min-width: 200px;
-        }
-        #sidebar ul{
-            list-style: none;
-            padding-left: 0;
-            font-size: .9em;
-            line-height: 1.4em;
-        }
-        #sidebar ul li{
-            margin-bottom: .8em;
-        }
-        #sidebar ul li a.router-link-active{
-            color: black;
-        }
-        #content{
-            width: 100%;
-            min-width: 500px;
-        }
-    </style>
 </head>
 <html>
     <body>
-        <div id="app" class="markdown-body">
-            <nav id="sidebar">
-                <ul v-if="pages.length">
-                    <li v-for="page in pages">
-                        <router-link :to="page.name">{{ page.title }}</router-link>
-                    </li>
-                </ul>
-            </nav>
-            <div id="content">
-                <div :style="{textAlign:'right',padding:'10px', marginBottom:'-20px'}">
-                    <a
-                        v-if="$route.params.page"
-                        :href="'<?= getenv("EDIT_LINK_BASE") ?>' + $route.params.page"
-                        target="_blank"
-                    >Editer</a>
-                </div>
-                <router-view />
-            </div>
+        <div id="app" data-edit-link-base="<?= getenv("EDIT_LINK_BASE") ?>">
+            <!-- App injected by Vue -->
         </div>
-        <script>
-            var app = new Vue({
-                el: "#app",
-                data: {
-                    pages: []
-                },
-                created(){
-                    fetch("get_content.php")
-                        .then(response => response.json())
-                        .then(json => this.pages = json)
-                },
-                router: new VueRouter({
-                    routes: [{
-                        path: "/:page",
-                        component: {
-                            template: '<div v-html="autoLinkedHtml" />',
-                            computed: {
-                                html() {
-                                    var page = this.$parent.pages.find(p => {
-                                        return this.$route.params.page === p.name
-                                    })
-                                    return page ? page.html : "Chargement..."
-                                },
-                                autoLinkedHtml() {
-                                    return Autolinker.link(this.html)
-                                }
-                            }
-                        }
-                    }]
-                })
-            })
-        </script>
     </body>
+    <script src="dist/main.js"></script>
 </html>
