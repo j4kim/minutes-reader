@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :style="{ marginBottom: '40px' }">
         <div v-html="page.html" />
         <tags :tags="page.tags" />
     </div>
