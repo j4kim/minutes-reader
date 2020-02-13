@@ -16,7 +16,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+#app {
     .tag {
         background: #f5f5f5;
         padding: 1px 4px;
@@ -42,4 +43,5 @@ export default {
     .tag-14{ background: #ffe0b2 }
     .tag-15{ background: #ffe0b2 }
     .tag-16{ background: #d7ccc8 }
+}
 </style>
