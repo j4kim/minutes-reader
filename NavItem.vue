@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link :to="page.name">
+        <router-link :to="{ path: page.name, query: $route.query }">
             {{ page.title }}
         </router-link>
         <tags :tags="page.tags" />
