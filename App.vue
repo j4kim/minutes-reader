@@ -21,23 +21,37 @@
 </template>
 
 <script>
-import { uniq, flatten } from "lodash"
 import NavItem from "./NavItem.vue"
 
 export default {
     components: { NavItem },
     data() {
-        return { pages: [] }
+        return { pages: [], allTags: {} }
     },
     created(){
         fetch("get_content.php")
             .then(response => response.json())
-            .then(json => this.pages = json)
+            .then(pages => pages.map(this.setTags))
+            .then(pages => this.pages = pages)
+    },
+    methods: {
+        setTags(page) {
+            page.tags = page.tags.map(tagName => {
+                let existingTag = this.allTags[tagName]
+                if (existingTag) {
+                    return existingTag
+                }
+                let newTag = {
+                    name: tagName,
+                    id: Object.values(this.allTags).length
+                }
+                this.allTags[tagName] = newTag
+                return newTag
+            })
+            return page
+        }
     },
     computed: {
-        allTags() {
-            return uniq(flatten(this.pages.map(page => page.tags)))
-        },
         editLinkBase() {
             return document.body.dataset.editLinkBase
         }
