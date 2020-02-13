@@ -4,7 +4,8 @@
             :to="'?tag='+tag.name"
             v-for="tag in tags"
             :key="tag.id"
-            :class="'tag tag-'+tag.id" 
+            :class="'tag tag-'+tag.id"
+            replace
         >
             {{ tag.name }}
         </router-link>
