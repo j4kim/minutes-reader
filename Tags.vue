@@ -1,19 +1,20 @@
 <template>
     <div>
-        <small
+        <router-link
+            :to="'?tag='+tag.name"
             v-for="tag in tags"
             :key="tag.id"
             :class="'tag tag-'+tag.id" 
         >
             {{ tag.name }}
-        </small>
+        </router-link>
     </div>
 </template>
 
 <script>
 export default {
     props: ["tags"]
-}
+}   
 </script>
 
 <style lang="scss">

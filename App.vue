@@ -1,8 +1,15 @@
 <template>
     <div id="app" class="markdown-body">
         <nav id="sidebar">
-            <ul v-if="pages.length">
-                <li v-for="page in pages" :key="page.name">
+            <div v-if="$route.query.tag">
+                Tag: {{ $route.query.tag }}
+                <button @click="$router.replace({
+                    ...$router.currentRoute, query: {}
+                })">✕</button>
+                <hr>
+            </div>
+            <ul v-if="filteredPages.length">
+                <li v-for="page in filteredPages" :key="page.name">
                     <nav-item :page="page" />
                 </li>
             </ul>
@@ -54,6 +61,12 @@ export default {
     computed: {
         editLinkBase() {
             return document.body.dataset.editLinkBase
+        },
+        filteredPages(){
+            let tagName = this.$route.query.tag
+            return tagName ? this.pages.filter(page => 
+                page.tags.some(tag => tag.name === tagName)
+            ) : this.pages
         }
     }
 
