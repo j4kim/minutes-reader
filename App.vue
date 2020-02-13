@@ -1,13 +1,16 @@
 <template>
     <div id="app" class="markdown-body">
         <nav id="sidebar">
+            <p>
+                <input placeholder="Recherche" v-model="search" />
+            </p>
             <div v-if="$route.query.tag">
                 Tag: {{ $route.query.tag }}
                 <button @click="$router.replace({
                     ...$router.currentRoute, query: {}
                 })">✕</button>
-                <hr>
             </div>
+            <hr>
             <ul v-if="filteredPages.length">
                 <li v-for="page in filteredPages" :key="page.name">
                     <nav-item :page="page" />
@@ -33,7 +36,7 @@ import NavItem from "./NavItem.vue"
 export default {
     components: { NavItem },
     data() {
-        return { pages: [], allTags: {} }
+        return { pages: [], allTags: {}, search: "" }
     },
     created(){
         fetch("get_content.php")
@@ -68,8 +71,20 @@ export default {
                 page.tags.some(tag => tag.name === tagName)
             ) : this.pages
         }
+    },
+    watch: {
+        search(newValue) {
+            let newRoute = {
+                ...this.$router.currentRoute,
+                query: Object.assign(
+                    {},
+                    this.$route.query,
+                    { search: newValue }
+                )
+            }
+            this.$router.replace(newRoute).catch(err => {})
+        }
     }
-
 }
 </script>
 
