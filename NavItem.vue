@@ -1,6 +1,9 @@
 <template>
     <div>
-        <router-link :to="{ path: page.name, query: $route.query }">
+        <router-link
+            class="nav-link"
+            :to="{ path: page.name, query: $route.query }"
+        >
             {{ page.title }}
         </router-link>
         <tags :tags="page.tags" />

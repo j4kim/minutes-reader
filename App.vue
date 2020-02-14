@@ -114,7 +114,7 @@ body,html{
 #sidebar ul li{
     margin-bottom: .8em;
 }
-#sidebar ul li a.router-link-active{
+#sidebar ul li .nav-link.router-link-active{
     color: black;
 }
 #content{
