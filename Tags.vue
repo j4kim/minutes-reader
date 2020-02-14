@@ -1,11 +1,9 @@
 <template>
     <div>
         <a
-            @click="tagFilter(tag.name)"
-            v-for="tag in tags"
-            :key="tag.id"
+            @click="applyTagFilter(tag.name)"
+            v-for="tag in tags" :key="tag.id"
             :class="'tag tag-'+tag.id"
-            style="cursor:pointer"
         >
             {{ tag.name }}
         </a>
@@ -16,7 +14,7 @@
 export default {
     props: ["tags"],
     methods: {
-        tagFilter(tag){
+        applyTagFilter(tag){
             this.$root.updateRouteQuery({tag})
         }
     }
@@ -32,6 +30,7 @@ export default {
         border: 1px solid white;
         border-radius: 4px;
         font-size: .75em;
+        cursor:pointer;
     }
     .tag-0 { background: #ffcdd2 }
     .tag-1 { background: #f8bbd0 }
