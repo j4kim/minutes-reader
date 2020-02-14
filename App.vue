@@ -2,7 +2,7 @@
     <div id="app" class="markdown-body">
         <nav id="sidebar">
             <p>
-                <input placeholder="Recherche" v-model="search" />
+                <input placeholder="Recherche" v-model="search" type="search" />
             </p>
             <div v-if="$route.query.tag">
                 Tag: {{ $route.query.tag }}
