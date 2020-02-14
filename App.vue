@@ -1,13 +1,11 @@
 <template>
     <div id="app" class="markdown-body">
         <nav id="sidebar">
-            <p>
-                <input placeholder="Recherche" v-model="search" type="search" />
-            </p>
-            <div v-if="$route.query.tag">
+            <input placeholder="Recherche" v-model="search" type="search" />
+            <span v-if="$route.query.tag">
                 Tag: {{ $route.query.tag }}
                 <button @click="$root.applyTagFilter()">✕</button>
-            </div>
+            </span>
             <hr>
             <ul v-if="filteredPages.length">
                 <li v-for="page in filteredPages" :key="page.name">
