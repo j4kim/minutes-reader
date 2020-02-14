@@ -42,6 +42,7 @@ export default {
         fetch("get_content.php")
             .then(response => response.json())
             .then(pages => pages.map(this.setTags))
+            .then(pages => pages.map(this.setSearchContent))
             .then(pages => this.pages = pages)
     },
     methods: {
@@ -60,6 +61,10 @@ export default {
             })
             return page
         },
+        setSearchContent(page) {
+            page.searchContent = page.content.toLowerCase()
+            return page
+        },
         tagCheck(page) {
             let tagName = this.$route.query.tag
             return tagName ?
@@ -67,10 +72,7 @@ export default {
                 true
         },
         searchCheck(page) {
-            let searchTerm = this.$route.query.search
-            return searchTerm ?
-                page.content.toLowerCase().includes(searchTerm.toLowerCase()) :
-                true
+            return page.searchContent.includes(this.searchTerm)
         }
     },
     computed: {
@@ -81,6 +83,9 @@ export default {
             return this.pages
                 .filter(this.tagCheck)
                 .filter(this.searchCheck)
+        },
+        searchTerm() {
+            return (this.$route.query.search || "").toLowerCase()
         }
     },
     watch: {
