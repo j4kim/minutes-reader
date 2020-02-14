@@ -12,5 +12,13 @@ new Vue({
             path: "/:page",
             component: Page
         }]
-    })
+    }),
+    methods: {
+        updateRouteQuery(newQuery = {tag:undefined, search:undefined}) {
+            this.$router.replace({
+                ...this.$router.currentRoute,
+                query: Object.assign({}, this.$route.query, newQuery)
+            }).catch(err => {})
+        }
+    }
 }).$mount('#app')

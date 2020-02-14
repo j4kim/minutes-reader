@@ -1,21 +1,26 @@
 <template>
     <div>
-        <router-link
-            :to="'?tag='+tag.name"
+        <a
+            @click="tagFilter(tag.name)"
             v-for="tag in tags"
             :key="tag.id"
             :class="'tag tag-'+tag.id"
-            replace
+            style="cursor:pointer"
         >
             {{ tag.name }}
-        </router-link>
+        </a>
     </div>
 </template>
 
 <script>
 export default {
-    props: ["tags"]
-}   
+    props: ["tags"],
+    methods: {
+        tagFilter(tag){
+            this.$root.updateRouteQuery({tag})
+        }
+    }
+}
 </script>
 
 <style lang="scss">

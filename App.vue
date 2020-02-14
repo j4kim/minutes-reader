@@ -6,9 +6,7 @@
             </p>
             <div v-if="$route.query.tag">
                 Tag: {{ $route.query.tag }}
-                <button @click="$router.replace({
-                    ...$router.currentRoute, query: {}
-                })">✕</button>
+                <button @click="clearTagFilter">✕</button>
             </div>
             <hr>
             <ul v-if="filteredPages.length">
@@ -73,6 +71,9 @@ export default {
         },
         searchCheck(page) {
             return page.searchContent.includes(this.searchTerm)
+        },
+        clearTagFilter() {
+            this.$root.updateRouteQuery({tag:undefined})
         }
     },
     computed: {
@@ -89,16 +90,8 @@ export default {
         }
     },
     watch: {
-        search(newValue) {
-            let newRoute = {
-                ...this.$router.currentRoute,
-                query: Object.assign(
-                    {},
-                    this.$route.query,
-                    { search: newValue }
-                )
-            }
-            this.$router.replace(newRoute).catch(err => {})
+        search(search) {
+            this.$root.updateRouteQuery({search})
         }
     }
 }
