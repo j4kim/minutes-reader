@@ -6,7 +6,7 @@
             </p>
             <div v-if="$route.query.tag">
                 Tag: {{ $route.query.tag }}
-                <button @click="clearTagFilter">✕</button>
+                <button @click="$root.applyTagFilter()">✕</button>
             </div>
             <hr>
             <ul v-if="filteredPages.length">
@@ -72,9 +72,6 @@ export default {
         searchCheck(page) {
             return page.searchContent.includes(this.searchTerm)
         },
-        clearTagFilter() {
-            this.$root.updateRouteQuery({tag:undefined})
-        }
     },
     computed: {
         editLinkBase() {
@@ -91,7 +88,7 @@ export default {
     },
     watch: {
         search(search) {
-            this.$root.updateRouteQuery({search})
+            this.$root.applySearchFilter(search)
         }
     }
 }

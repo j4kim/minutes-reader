@@ -1,7 +1,7 @@
 <template>
     <div>
         <a
-            @click="applyTagFilter(tag.name)"
+            @click="$root.applyTagFilter(tag.name)"
             v-for="tag in tags" :key="tag.id"
             :class="'tag tag-'+tag.id"
         >
@@ -13,11 +13,6 @@
 <script>
 export default {
     props: ["tags"],
-    methods: {
-        applyTagFilter(tag){
-            this.$root.updateRouteQuery({tag})
-        }
-    }
 }
 </script>
 

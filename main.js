@@ -14,11 +14,17 @@ new Vue({
         }]
     }),
     methods: {
-        updateRouteQuery(newQuery = {tag:undefined, search:undefined}) {
+        updateRouteQuery(newQuery) {
             this.$router.replace({
                 ...this.$router.currentRoute,
                 query: Object.assign({}, this.$route.query, newQuery)
             }).catch(err => {})
+        },
+        applyTagFilter(tag = "") {
+            this.updateRouteQuery({tag: tag || undefined})
+        },
+        applySearchFilter(search = "") {
+            this.updateRouteQuery({search: search || undefined})
         }
     }
 }).$mount('#app')
