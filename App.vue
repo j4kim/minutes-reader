@@ -34,7 +34,7 @@ import NavItem from "./NavItem.vue"
 export default {
     components: { NavItem },
     data() {
-        return { pages: [], allTags: {}, search: "" }
+        return { pages: [], allTags: {} }
     },
     created(){
         fetch("get_content.php")
@@ -84,11 +84,14 @@ export default {
         },
         searchTerm() {
             return (this.$route.query.search || "").toLowerCase()
-        }
-    },
-    watch: {
-        search(search) {
-            this.$root.applySearchFilter(search)
+        },
+        search: {
+            get() {
+                return this.$route.query.search
+            },
+            set(search) {
+                this.$root.applySearchFilter(search)
+            },
         }
     }
 }
