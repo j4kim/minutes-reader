@@ -59,6 +59,18 @@ export default {
                 return newTag
             })
             return page
+        },
+        tagCheck(page) {
+            let tagName = this.$route.query.tag
+            return tagName ?
+                page.tags.some(t => t.name === tagName) :
+                true
+        },
+        searchCheck(page) {
+            let searchTerm = this.$route.query.search
+            return searchTerm ?
+                page.content.toLowerCase().includes(searchTerm.toLowerCase()) :
+                true
         }
     },
     computed: {
@@ -66,10 +78,9 @@ export default {
             return document.body.dataset.editLinkBase
         },
         filteredPages(){
-            let tagName = this.$route.query.tag
-            return tagName ? this.pages.filter(page => 
-                page.tags.some(tag => tag.name === tagName)
-            ) : this.pages
+            return this.pages
+                .filter(this.tagCheck)
+                .filter(this.searchCheck)
         }
     },
     watch: {
