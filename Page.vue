@@ -17,6 +17,9 @@ export default {
     mounted() {
         this.markInstance = new Mark(this.$refs.pageContent);
     },
+    updated() {
+        this.mark()
+    },
     methods: {
         mark() {
             let search = this.$route.query.search
@@ -36,9 +39,6 @@ export default {
                 return this.$route.params.page === p.name
             }) || { html: "Chargement..." }
         }
-    },
-    watch: {
-        "$route": function(){ this.mark() },
     }
 }
 </script>
