@@ -35,9 +35,9 @@ export default {
     },
     computed: {
         page() {
-            return this.$parent.pages.find(p => {
+            return this.$parent.filteredPages.find(p => {
                 return this.$route.params.page === p.name
-            }) || { html: "Chargement..." }
+            }) || { html: "" }
         }
     }
 }
