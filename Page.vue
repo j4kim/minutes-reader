@@ -27,7 +27,9 @@ export default {
             inst.unmark({
                 done(){
                     if (search) {
-                        inst.mark(search)
+                        inst.mark(search, {
+                            separateWordSearch: false
+                        })
                     }
                 }
             });
