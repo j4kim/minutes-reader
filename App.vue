@@ -1,34 +1,30 @@
 <template>
-    <div id="app" class="markdown-body">
-        <slideout menu="#sidebar" panel="#content" :toggleSelectors="['.toggle-button']">
-            <nav id="sidebar">
-                <input placeholder="Recherche" v-model="search" type="search" />
-                <div v-if="$route.query.tag">
-                    Tag: {{ $route.query.tag }}
-                    <button @click="$root.applyTagFilter()">✕</button>
-                </div>
-                <hr>
-                <ul v-if="filteredPages.length">
-                    <li v-for="page in filteredPages" :key="page.name">
-                        <nav-item :page="page" />
-                    </li>
-                </ul>
-            </nav>
-            <main id="content">
-                <div>
-                    <button class="toggle-button">☰</button>
-                </div>
-                <div :style="{textAlign:'right',padding:'10px', marginBottom:'-20px'}">
-                    <a
-                        v-if="$route.params.page"
-                        :href="editLinkBase + $route.params.page"
-                        target="_blank"
-                    >Editer</a>
-                </div>
-                <router-view :page="page" />
-            </main>
-        </slideout>
-    </div>
+    <slideout menu="#sidebar" panel="#content" :toggleSelectors="['.toggle-button']" id="app" class="markdown-body">
+        <nav id="sidebar">
+            <input placeholder="Recherche" v-model="search" type="search" />
+            <div v-if="$route.query.tag">
+                Tag: {{ $route.query.tag }}
+                <button @click="$root.applyTagFilter()">✕</button>
+            </div>
+            <hr>
+            <ul v-if="filteredPages.length">
+                <li v-for="page in filteredPages" :key="page.name">
+                    <nav-item :page="page" />
+                </li>
+            </ul>
+        </nav>
+        <main id="content">
+            <button class="toggle-button">☰</button>
+            <div :style="{textAlign:'right',padding:'10px', marginBottom:'-20px'}">
+                <a
+                    v-if="$route.params.page"
+                    :href="editLinkBase + $route.params.page"
+                    target="_blank"
+                >Editer</a>
+            </div>
+            <router-view :page="page" />
+        </main>
+    </slideout>
 </template>
 
 <script>
@@ -146,5 +142,28 @@ body {
 
 .slideout-open .slideout-menu {
     display: block;
+}
+
+.toggle-button{
+    border: none;
+    font-size: 2em;
+}
+.toggle-button:focus{
+    outline: none;
+    background: lightgrey;
+}
+
+@media screen and (min-width: 780px) {
+  .slideout-panel {
+    margin-left: 256px;
+  }
+
+  .slideout-menu {
+    display: block;
+  }
+
+  .toggle-button{
+    display: none;
+  }
 }
 </style>
