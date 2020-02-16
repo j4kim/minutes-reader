@@ -102,14 +102,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 body {
     width: 100%;
     height: 100%;
     margin: 0;
 }
 
-.slideout-menu {
+#sidebar {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -121,49 +121,44 @@ body {
     z-index: 0;
     display: none;
     padding: 20px;
-}
-#sidebar ul{
-    list-style: none;
-    padding-left: 0;
-    font-size: .9em;
-    line-height: 1.4em;
-}
-#sidebar ul li{
-    margin-bottom: .8em;
+
+    ul li{
+        margin-bottom: .8em;
+    }
 }
 
-.slideout-panel {
+.slideout-open #sidebar {
+    display: block;
+}
+
+#content {
     background: white;
     position: relative;
     z-index: 1;
     will-change: transform;
     min-height: 100vh;
-}
 
-.slideout-open .slideout-menu {
-    display: block;
-}
-
-.toggle-button{
-    border: none;
-    font-size: 2em;
-}
-.toggle-button:focus{
-    outline: none;
-    background: lightgrey;
+    .toggle-button{
+        border: none;
+        font-size: 2em;
+        &:focus{
+            outline: none;
+            background: lightgrey;
+        }
+    }
 }
 
 @media screen and (min-width: 780px) {
-  .slideout-panel {
-    margin-left: 256px;
-  }
+    #content {
+        margin-left: 256px;
+    }
 
-  .slideout-menu {
-    display: block;
-  }
+    #sidebar {
+        display: block;
+    }
 
-  .toggle-button{
-    display: none;
-  }
+    .toggle-button{
+        display: none;
+    }
 }
 </style>
