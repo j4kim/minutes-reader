@@ -1,19 +1,21 @@
 <template>
-    <div id="app" class="markdown-body">
+    <slideout menu="#sidebar" panel="#content" :toggleSelectors="['.toggle-button']" id="app" class="markdown-body">
         <nav id="sidebar">
-            <input placeholder="Recherche" v-model="search" type="search" />
-            <span v-if="$route.query.tag">
-                Tag: {{ $route.query.tag }}
-                <button @click="$root.applyTagFilter()">✕</button>
-            </span>
-            <hr>
+            <header class="pad20">
+                <input placeholder="Recherche" v-model="search" type="search" />
+                <div v-if="$route.query.tag">
+                    Tag: {{ $route.query.tag }}
+                    <button @click="$root.applyTagFilter()">✕</button>
+                </div>
+            </header>
             <ul v-if="filteredPages.length">
                 <li v-for="page in filteredPages" :key="page.name">
                     <nav-item :page="page" />
                 </li>
             </ul>
         </nav>
-        <div id="content">
+        <main id="content" class="pad20">
+            <button class="toggle-button">☰</button>
             <div :style="{textAlign:'right',padding:'10px', marginBottom:'-20px'}">
                 <a
                     v-if="$route.params.page"
@@ -21,16 +23,17 @@
                     target="_blank"
                 >Editer</a>
             </div>
-            <router-view />
-        </div>
-    </div>
+            <router-view :page="page" />
+        </main>
+    </slideout>
 </template>
 
 <script>
+import Slideout from "vue-slideout"
 import NavItem from "./NavItem.vue"
 
 export default {
-    components: { NavItem },
+    components: { NavItem, Slideout },
     data() {
         return { pages: [], allTags: {} }
     },
@@ -90,42 +93,91 @@ export default {
             set(search) {
                 this.$root.applySearchFilter(search)
             },
+        },
+        page() {
+            return this.filteredPages.find(p => {
+                return this.$route.params.page === p.name
+            }) || { html: "" }
         }
     }
 }
 </script>
 
-<style>
-body,html{
-    margin:0;
-    padding:0;
+<style lang="scss">
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
-#app{
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 256px;
+    height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+
+    ul {
+        list-style:none;
+        padding:0;
+        overflow: auto;
+        li{
+            padding: 4px 20px 6px 20px;
+            margin: 0;
+        }
+    }
+
+    header {
+        border-bottom: 1px solid #eaecef;
+
+        input[type=search] {
+            width: 100%
+        }
+    }
+}
+
+.slideout-open #sidebar {
     display: flex;
 }
-#app > *{
-    height: 100vh;
-    overflow: auto;
+
+#content {
+    background: white;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    min-height: 100vh;
+
+    .toggle-button{
+        border: none;
+        font-size: 2em;
+        &:focus{
+            outline: none;
+            background: lightgrey;
+        }
+    }
 }
-#sidebar{
+
+.pad20{
     padding: 20px;
-    width: 600px;
-    min-width: 200px;
 }
-#sidebar ul{
-    list-style: none;
-    padding-left: 0;
-    font-size: .9em;
-    line-height: 1.4em;
-}
-#sidebar ul li{
-    margin-bottom: .8em;
-}
-#sidebar ul li .nav-link.router-link-active{
-    color: black;
-}
-#content{
-    width: 100%;
-    min-width: 500px;
+
+@media screen and (min-width: 780px) {
+    #content {
+        margin-left: 256px;
+    }
+
+    #sidebar {
+        display: flex;
+    }
+
+    .toggle-button{
+        display: none;
+    }
 }
 </style>

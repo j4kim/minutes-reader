@@ -11,6 +11,7 @@ import Tags from "./Tags.vue"
 
 export default {
     components: { Tags },
+    props: ["page"],
     data() {
         return { markInstance: undefined }
     },
@@ -33,13 +34,6 @@ export default {
                     }
                 }
             });
-        }
-    },
-    computed: {
-        page() {
-            return this.$parent.filteredPages.find(p => {
-                return this.$route.params.page === p.name
-            }) || { html: "" }
         }
     }
 }

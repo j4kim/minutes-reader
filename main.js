@@ -9,6 +9,11 @@ new Vue({
     render: h => h(App),
     router: new VueRouter({
         routes: [{
+            path: "/",
+            component: {
+                render: h =>  h("i", "<-- Veuillez sélectionner un PV dans la liste")
+            }
+        },{
             path: "/:page",
             component: Page
         }]
