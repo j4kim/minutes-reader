@@ -1,19 +1,20 @@
 <template>
     <slideout menu="#sidebar" panel="#content" :toggleSelectors="['.toggle-button']" id="app" class="markdown-body">
         <nav id="sidebar">
-            <input placeholder="Recherche" v-model="search" type="search" />
-            <div v-if="$route.query.tag">
-                Tag: {{ $route.query.tag }}
-                <button @click="$root.applyTagFilter()">✕</button>
-            </div>
-            <hr>
+            <header class="pad20">
+                <input placeholder="Recherche" v-model="search" type="search" />
+                <div v-if="$route.query.tag">
+                    Tag: {{ $route.query.tag }}
+                    <button @click="$root.applyTagFilter()">✕</button>
+                </div>
+            </header>
             <ul v-if="filteredPages.length">
                 <li v-for="page in filteredPages" :key="page.name">
                     <nav-item :page="page" />
                 </li>
             </ul>
         </nav>
-        <main id="content">
+        <main id="content" class="pad20">
             <button class="toggle-button">☰</button>
             <div :style="{textAlign:'right',padding:'10px', marginBottom:'-20px'}">
                 <a
@@ -119,16 +120,30 @@ body {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     z-index: 0;
-    display: none;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
 
-    ul li{
-        margin-bottom: .8em;
+    ul {
+        list-style:none;
+        padding:0;
+        overflow: auto;
+        li{
+            padding: 4px 20px 6px 20px;
+            margin: 0;
+        }
+    }
+
+    header {
+        border-bottom: 1px solid #eaecef;
+
+        input[type=search] {
+            width: 100%
+        }
     }
 }
 
 .slideout-open #sidebar {
-    display: block;
+    display: flex;
 }
 
 #content {
@@ -148,13 +163,17 @@ body {
     }
 }
 
+.pad20{
+    padding: 20px;
+}
+
 @media screen and (min-width: 780px) {
     #content {
         margin-left: 256px;
     }
 
     #sidebar {
-        display: block;
+        display: flex;
     }
 
     .toggle-button{
