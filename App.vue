@@ -1,36 +1,42 @@
 <template>
     <div id="app" class="markdown-body">
-        <nav id="sidebar">
-            <input placeholder="Recherche" v-model="search" type="search" />
-            <span v-if="$route.query.tag">
-                Tag: {{ $route.query.tag }}
-                <button @click="$root.applyTagFilter()">✕</button>
-            </span>
-            <hr>
-            <ul v-if="filteredPages.length">
-                <li v-for="page in filteredPages" :key="page.name">
-                    <nav-item :page="page" />
-                </li>
-            </ul>
-        </nav>
-        <div id="content">
-            <div :style="{textAlign:'right',padding:'10px', marginBottom:'-20px'}">
-                <a
-                    v-if="$route.params.page"
-                    :href="editLinkBase + $route.params.page"
-                    target="_blank"
-                >Editer</a>
-            </div>
-            <router-view />
-        </div>
+        <slideout menu="#sidebar" panel="#content" :toggleSelectors="['.toggle-button']">
+            <nav id="sidebar">
+                <input placeholder="Recherche" v-model="search" type="search" />
+                <div v-if="$route.query.tag">
+                    Tag: {{ $route.query.tag }}
+                    <button @click="$root.applyTagFilter()">✕</button>
+                </div>
+                <hr>
+                <ul v-if="filteredPages.length">
+                    <li v-for="page in filteredPages" :key="page.name">
+                        <nav-item :page="page" />
+                    </li>
+                </ul>
+            </nav>
+            <main id="content">
+                <div>
+                    <button class="toggle-button">☰</button>
+                </div>
+                <div :style="{textAlign:'right',padding:'10px', marginBottom:'-20px'}">
+                    <a
+                        v-if="$route.params.page"
+                        :href="editLinkBase + $route.params.page"
+                        target="_blank"
+                    >Editer</a>
+                </div>
+                <router-view :page="page" />
+            </main>
+        </slideout>
     </div>
 </template>
 
 <script>
+import Slideout from "vue-slideout"
 import NavItem from "./NavItem.vue"
 
 export default {
-    components: { NavItem },
+    components: { NavItem, Slideout },
     data() {
         return { pages: [], allTags: {} }
     },
@@ -90,27 +96,35 @@ export default {
             set(search) {
                 this.$root.applySearchFilter(search)
             },
+        },
+        page() {
+            return this.filteredPages.find(p => {
+                return this.$route.params.page === p.name
+            }) || { html: "" }
         }
     }
 }
 </script>
 
 <style>
-body,html{
-    margin:0;
-    padding:0;
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
-#app{
-    display: flex;
-}
-#app > *{
+
+.slideout-menu {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 256px;
     height: 100vh;
-    overflow: auto;
-}
-#sidebar{
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    z-index: 0;
+    display: none;
     padding: 20px;
-    width: 600px;
-    min-width: 200px;
 }
 #sidebar ul{
     list-style: none;
@@ -121,11 +135,16 @@ body,html{
 #sidebar ul li{
     margin-bottom: .8em;
 }
-#sidebar ul li .nav-link.router-link-active{
-    color: black;
+
+.slideout-panel {
+    background: white;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    min-height: 100vh;
 }
-#content{
-    width: 100%;
-    min-width: 500px;
+
+.slideout-open .slideout-menu {
+    display: block;
 }
 </style>
