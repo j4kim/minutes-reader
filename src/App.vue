@@ -118,6 +118,7 @@ body {
     z-index: 0;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid #eaecef;
 
     ul {
         list-style:none;
@@ -153,6 +154,7 @@ body {
     .toggle-button{
         border: none;
         font-size: 2em;
+        background: white;
         &:focus{
             outline: none;
             background: #eaecef;
