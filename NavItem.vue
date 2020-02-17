@@ -42,9 +42,8 @@ export default {
             text-decoration:none;
         }
         &.router-link-active{
-            background-color: #abb3bf;
-            color:white;
-            div{ color: white }
+            background-color: #eaecef;
+            div{ color: #24292e }
         }
     }
 }
