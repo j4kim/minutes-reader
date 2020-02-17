@@ -20,6 +20,10 @@ export default {
     },
     updated() {
         this.mark()
+        let activeLinkEl = document.querySelector(".router-link-active")
+        if(activeLinkEl){
+            activeLinkEl.scrollIntoView()
+        }
     },
     methods: {
         mark() {
