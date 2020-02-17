@@ -115,18 +115,18 @@ body {
     left: 0;
     width: 256px;
     height: 100vh;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
     z-index: 0;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid #eaecef;
 
     ul {
         list-style:none;
         padding:0;
         overflow: auto;
+        margin: 0;
         li{
-            padding: 4px 20px 6px 20px;
+            padding: 6px 20px 8px 20px;
             margin: 0;
         }
     }
@@ -154,6 +154,7 @@ body {
     .toggle-button{
         border: none;
         font-size: 2em;
+        background: white;
         &:focus{
             outline: none;
             background: #eaecef;

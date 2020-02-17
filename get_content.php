@@ -14,13 +14,14 @@ $files = scandir($folder);
 $pages = [];
 
 foreach ($files as $name) {
+    if ($name[0] == ".") { continue; }
     $content = file_get_contents("$folder/$name");
-    if($content){
+    if ($content) {
         $lines = explode("\n", $content);
         $first_line = $lines[0];
-        $title = array_pop(explode("# ", $first_line));
+        $title = explode("# ", $first_line)[1];
         $last_line = array_pop($lines);
-        $tags = explode(",", array_pop(explode("tags: ", $last_line))); 
+        $tags = explode(",", explode("tags: ", $last_line)[1]); 
         $content = implode("\n", $lines);
         $html = $converter->convertToHtml($content);
         $pages[] = compact("name", "title", "content", "html", "tags");
