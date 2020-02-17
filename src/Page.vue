@@ -48,7 +48,7 @@ export default {
         }
     },
     watch:{
-        "$route.query": function(){
+        $route(){
             this.mark()
         }
     }
