@@ -39,6 +39,11 @@ export default {
                 }
             });
         }
+    },
+    watch:{
+        "$route.query": function(){
+            this.mark()
+        }
     }
 }
 </script>
