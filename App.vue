@@ -9,9 +9,7 @@
                 </div>
             </header>
             <ul v-if="filteredPages.length">
-                <li v-for="page in filteredPages" :key="page.name">
-                    <nav-item :page="page" />
-                </li>
+                <nav-item v-for="page in filteredPages" :key="page.name" :page="page" />
             </ul>
         </nav>
         <main id="content" class="pad20">
@@ -158,7 +156,7 @@ body {
         font-size: 2em;
         &:focus{
             outline: none;
-            background: lightgrey;
+            background: #eaecef;
         }
     }
 }

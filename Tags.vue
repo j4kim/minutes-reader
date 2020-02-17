@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <span>
         <a
             @click="$root.applyTagFilter(tag.name)"
             v-for="tag in tags" :key="tag.id"
@@ -7,7 +7,7 @@
         >
             {{ tag.name }}
         </a>
-    </div>
+    </span>
 </template>
 
 <script>
@@ -20,9 +20,9 @@ export default {
 #app {
     .tag {
         background: #f5f5f5;
+        color:#24292e;
         padding: 1px 4px;
         margin: 2px;
-        border: 1px solid white;
         border-radius: 4px;
         font-size: .75em;
         cursor:pointer;
