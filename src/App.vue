@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { get } from "axios"
 import Slideout from "vue-slideout"
 import NavItem from "./NavItem.vue"
 
@@ -36,8 +37,7 @@ export default {
         return { pages: [], allTags: {} }
     },
     created(){
-        fetch("get_content.php")
-            .then(response => response.json())
+        get("get_content.php")
             .then(pages => pages.map(this.setTags))
             .then(pages => pages.map(this.setSearchContent))
             .then(pages => this.pages = pages)
