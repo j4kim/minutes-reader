@@ -20,7 +20,10 @@ foreach ($files as $name) {
         $lines = explode("\n", $content);
         $first_line = $lines[0];
         $title = explode("# ", $first_line)[1];
-        $last_line = array_pop($lines);
+        $last_line = "";
+        while(empty($last_line)) {
+            $last_line = array_pop($lines);
+        }
         $tags = explode(",", explode("tags: ", $last_line)[1]); 
         $content = implode("\n", $lines);
         $html = $converter->convertToHtml($content);
