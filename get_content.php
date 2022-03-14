@@ -5,6 +5,7 @@ require "configure.php";
 $environment = League\CommonMark\Environment::createCommonMarkEnvironment();
 $environment->addExtension(new League\CommonMark\Extension\Autolink\AutolinkExtension());
 $environment->addExtension(new League\CommonMark\Extension\TaskList\TaskListExtension());
+$environment->addExtension(new League\CommonMark\Extension\Strikethrough\StrikethroughExtensionn());
 $converter = new League\CommonMark\CommonMarkConverter([], $environment);
 
 $folder = getenv("FOLDER");
